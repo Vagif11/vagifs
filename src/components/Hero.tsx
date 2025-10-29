@@ -4,24 +4,24 @@ import { Button } from "@/components/ui/button";
 import { Download, Github, Linkedin, Mail } from "lucide-react";
 
 export const Hero = () => {
-  const text = "AI/ML/NLP engineer";
+  const fullText = "Building intelligence, one model at a time.\n\nAI/ML/NLP engineer specializing in LLMs, deep learning, and applied AI systems. Passionate about transforming complex data into actionable intelligence.";
   const [displayedText, setDisplayedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
+    if (currentIndex < fullText.length) {
       const timeout = setTimeout(() => {
-        setDisplayedText(prev => prev + text[currentIndex]);
+        setDisplayedText(prev => prev + fullText[currentIndex]);
         setCurrentIndex(prev => prev + 1);
         
         // Play typing sound
         const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSmM0fPTgjEIHG7A7+OZSA0PVKzn77BdGAg+mtv0ynYnBSiC0PLaiTcIGWi77eeaTRALUKfj8LZjHAY4kdfyzHksBSR3x/DdkEAKFF606+ynVRQKRp/g8r1sIQQojdHz04IxCBxuwO/jmEgND1Ss5++wXRgIPprb9Mp2JwUogtDy2ok3CBlou+3nmksRDFCn4/C2YxwGOJHX8sx5LAUkd8fw3ZBAA');
         audio.volume = 0.1;
         audio.play().catch(() => {}); // Ignore errors if audio fails
-      }, 100);
+      }, 50);
       return () => clearTimeout(timeout);
     }
-  }, [currentIndex, text]);
+  }, [currentIndex, fullText]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -48,22 +48,13 @@ export const Hero = () => {
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <div className="animate-fade-in">
           <div className="terminal-text mb-4">vagif@ai-engineer:~$</div>
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
+          <h1 className="text-6xl md:text-8xl font-bold mb-8 tracking-tight">
             Vagif Asadov
           </h1>
-          <div className="text-2xl md:text-3xl font-mono font-semibold mb-4 min-h-[2.5rem] flex items-center justify-center">
-            <span className="gradient-text">
-              {displayedText}
-              <span className="animate-pulse">|</span>
-            </span>
+          <div className="font-mono text-lg md:text-xl text-left max-w-3xl mx-auto mb-12 leading-relaxed text-muted-foreground whitespace-pre-wrap">
+            {displayedText}
+            <span className="animate-pulse">|</span>
           </div>
-          <p className="text-lg text-muted-foreground mb-4">
-            Building intelligence, one model at a time.
-          </p>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-            AI/ML/NLP engineer specializing in LLMs, deep learning, and applied AI systems.
-            Passionate about transforming complex data into actionable intelligence.
-          </p>
 
           <div className="flex gap-4 justify-center flex-wrap">
             <Button size="lg" className="hover-glow group" asChild>

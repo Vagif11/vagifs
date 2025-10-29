@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Download, Github, Linkedin, Mail } from "lucide-react";
 
@@ -39,9 +40,11 @@ export const Hero = () => {
           </p>
 
           <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" className="hover-glow group">
-              <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
-              Download CV
+            <Button size="lg" className="hover-glow group" asChild>
+              <Link to="/cv">
+                <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
+                View Full CV
+              </Link>
             </Button>
             <Button size="lg" variant="outline" className="hover-glow" asChild>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer">

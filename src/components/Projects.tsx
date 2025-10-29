@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ const projects = [
     tags: ["PyTorch", "Hugging Face", "BERT", "GPT-2", "Medical NLP"],
     github: "https://github.com",
     demo: null,
+    slug: "endometrial-cancer-extraction",
   },
   {
     title: "Semantic Search API",
@@ -17,6 +19,7 @@ const projects = [
     tags: ["FastAPI", "FAISS", "Transformers", "AWS", "Docker"],
     github: "https://github.com",
     demo: "https://demo.com",
+    slug: "semantic-search-api",
   },
   {
     title: "BERT F-Score Analysis",
@@ -24,6 +27,7 @@ const projects = [
     tags: ["PyTorch", "BERT", "MLOps", "Weights & Biases"],
     github: "https://github.com",
     demo: null,
+    slug: "bert-fscore-analysis",
   },
   {
     title: "GPT-2 Medical Fine-Tuning",
@@ -31,6 +35,7 @@ const projects = [
     tags: ["GPT-2", "Transformers", "Medical AI", "Python"],
     github: "https://github.com",
     demo: null,
+    slug: "gpt2-medical-finetuning",
   },
   {
     title: "AWS Textract Pipeline",
@@ -38,6 +43,7 @@ const projects = [
     tags: ["AWS", "Textract", "Lambda", "S3", "Python"],
     github: "https://github.com",
     demo: null,
+    slug: "aws-textract-pipeline",
   },
   {
     title: "Multi-Modal Embedding System",
@@ -45,6 +51,7 @@ const projects = [
     tags: ["CLIP", "PyTorch", "Vector DB", "FastAPI"],
     github: "https://github.com",
     demo: "https://demo.com",
+    slug: "multimodal-embedding-system",
   },
 ];
 
@@ -61,47 +68,58 @@ export const Projects = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="glass-card hover-glow group cursor-pointer transition-all duration-300 hover:scale-105"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardHeader>
-                <CardTitle className="flex items-start justify-between">
-                  <span className="group-hover:gradient-text transition-all">
-                    {project.title}
-                  </span>
-                </CardTitle>
-                <CardDescription className="text-sm leading-relaxed">
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="terminal-text">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="hover-glow" asChild>
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="h-4 w-4 mr-1" />
-                      Code
-                    </a>
-                  </Button>
-                  {project.demo && (
+            <Link key={index} to={`/projects/${project.slug}`}>
+              <Card
+                className="glass-card hover-glow group cursor-pointer transition-all duration-300 hover:scale-105"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardHeader>
+                  <CardTitle className="flex items-start justify-between">
+                    <span className="group-hover:gradient-text transition-all">
+                      {project.title}
+                    </span>
+                  </CardTitle>
+                  <CardDescription className="text-sm leading-relaxed">
+                    {project.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary" className="terminal-text">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
                     <Button size="sm" variant="outline" className="hover-glow" asChild>
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-1" />
-                        Demo
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Github className="h-4 w-4 mr-1" />
+                        Code
                       </a>
                     </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+                    {project.demo && (
+                      <Button size="sm" variant="outline" className="hover-glow" asChild>
+                        <a 
+                          href={project.demo} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="h-4 w-4 mr-1" />
+                          Demo
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>

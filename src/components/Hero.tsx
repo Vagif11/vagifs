@@ -1,8 +1,28 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Download, Github, Linkedin, Mail } from "lucide-react";
 
 export const Hero = () => {
+  const text = "AI/ML/NLP engineer";
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+        
+        // Play typing sound
+        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSmM0fPTgjEIHG7A7+OZSA0PVKzn77BdGAg+mtv0ynYnBSiC0PLaiTcIGWi77eeaTRALUKfj8LZjHAY4kdfyzHksBSR3x/DdkEAKFF606+ynVRQKRp/g8r1sIQQojdHz04IxCBxuwO/jmEgND1Ss5++wXRgIPprb9Mp2JwUogtDy2ok3CBlou+3nmksRDFCn4/C2YxwGOJHX8sx5LAUkd8fw3ZBAA');
+        audio.volume = 0.1;
+        audio.play().catch(() => {}); // Ignore errors if audio fails
+      }, 100);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, text]);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
@@ -31,7 +51,13 @@ export const Hero = () => {
           <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
             Vagif Asadov
           </h1>
-          <p className="text-2xl md:text-3xl gradient-text font-semibold mb-4">
+          <div className="text-2xl md:text-3xl font-mono font-semibold mb-4 min-h-[2.5rem] flex items-center justify-center">
+            <span className="gradient-text">
+              {displayedText}
+              <span className="animate-pulse">|</span>
+            </span>
+          </div>
+          <p className="text-lg text-muted-foreground mb-4">
             Building intelligence, one model at a time.
           </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">

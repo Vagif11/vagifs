@@ -10,26 +10,19 @@ export const Contact = () => {
   const quoteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasStarted) {
-            setHasStarted(true);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    if (quoteRef.current) {
-      observer.observe(quoteRef.current);
-    }
-
-    return () => {
-      if (quoteRef.current) {
-        observer.unobserve(quoteRef.current);
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      
+      // Check if user is at the bottom (within 100px)
+      if (scrollTop + windowHeight >= documentHeight - 100 && !hasStarted) {
+        setHasStarted(true);
       }
     };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [hasStarted]);
 
   useEffect(() => {

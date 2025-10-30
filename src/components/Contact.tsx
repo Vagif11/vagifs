@@ -1,14 +1,39 @@
 import { Button } from "@/components/ui/button";
 import { Mail, Github, Linkedin, Send } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const Contact = () => {
   const outputText = "output: you only have to be right once";
   const [displayedOutput, setDisplayedOutput] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const quoteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (currentIndex < outputText.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasStarted) {
+            setHasStarted(true);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (quoteRef.current) {
+      observer.observe(quoteRef.current);
+    }
+
+    return () => {
+      if (quoteRef.current) {
+        observer.unobserve(quoteRef.current);
+      }
+    };
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (hasStarted && currentIndex < outputText.length) {
       const timeout = setTimeout(() => {
         setDisplayedOutput(prev => prev + outputText[currentIndex]);
         setCurrentIndex(prev => prev + 1);
@@ -20,7 +45,7 @@ export const Contact = () => {
       }, 80);
       return () => clearTimeout(timeout);
     }
-  }, [currentIndex, outputText]);
+  }, [hasStarted, currentIndex, outputText]);
 
   return (
     <section id="contact" className="py-24 px-6 bg-muted/30">
@@ -54,10 +79,10 @@ export const Contact = () => {
           </Button>
         </div>
 
-        <div className="terminal-text text-left max-w-2xl mx-auto opacity-70">
+        <div ref={quoteRef} className="terminal-text text-left max-w-2xl mx-auto opacity-70">
           <p>
             {displayedOutput}
-            <span className="animate-pulse">|</span>
+            {hasStarted && <span className="animate-pulse">|</span>}
           </p>
         </div>
       </div>

@@ -34,8 +34,8 @@ export const Contact = () => {
           </Button>
         </div>
 
-        <div className="terminal-text text-center opacity-60">
-          <p>~ Discipline is the highest form of intelligence. ~</p>
+        <div className="terminal-text text-left max-w-2xl mx-auto opacity-70">
+          <p>output: you only have to be right once</p>
         </div>
       </div>
     </section>

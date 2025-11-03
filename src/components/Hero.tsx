@@ -64,19 +64,19 @@ export const Hero = () => {
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="hover-glow" asChild>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Vagif11" target="_blank" rel="noopener noreferrer">
                 <Github className="mr-2 h-5 w-5" />
                 GitHub
               </a>
             </Button>
             <Button size="lg" variant="outline" className="hover-glow" asChild>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/asadovagif/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="mr-2 h-5 w-5" />
                 LinkedIn
               </a>
             </Button>
             <Button size="lg" variant="outline" className="hover-glow" asChild>
-              <a href="mailto:contact@vagif.dev">
+              <a href="mailto:asadovagiff@gmail.com">
                 <Mail className="mr-2 h-5 w-5" />
                 Email
               </a>
